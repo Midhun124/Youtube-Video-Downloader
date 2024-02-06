@@ -41,3 +41,13 @@ def get_video_properties(request):
       return JsonResponse({
         'error': 'The requested video is unavailable',
       })
+
+def download_video(request):
+  # Get the filename from the session
+  filename = request.session.get('filename')
+  filepath = os.path.join(settings.MEDIA_ROOT, filename)
+  # Open the file in read mode
+  file = open(filepath, 'rb')
+  # Create a FileResponse instance and return it
+  response = FileResponse(file, as_attachment=True)
+  return response
