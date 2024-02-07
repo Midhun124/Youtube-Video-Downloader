@@ -4,53 +4,69 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/downloader.css" %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.1-beta2/css/all.min.css">
   </head>
+  <title>Youtube Video Downloader</title>
 <body>
-<div class="container">
-  <h1>Youtube video downloader</h1>
-  <form id="video-form" method="post">
-  {% csrf_token %}
-  <label for="link">Enter URL:</label>
-  <input type="text" id="link" name="link"><br><br>
-  <input onclick='displayVideoDiv()' class="submit-btn" type="submit" value="Submit">
-  </form>
-
-  <div class="spinner-border" id="loading" style="display: none;" role="status">
-    <span class="sr-only"></span>
-  </div>
-
-  <div class="video-display-container" style="display: none;">
-    <span class="base-title">Download Video as:</span>
-    <div class="video-display-content">
-      <div class="left-block">
-        <div>
-          <div class="video-thumbnail-container">
-            <img id="thumbnail" alt="Video thumbnail">
-          </div>
-          <div class="video-title-container">
-            <h2 id="title"></h2>
-          </div>
-          <div class="video-duration-container">
-            <p id="duration"></p>
-          </div>
+<div class="container-fluid">
+  <div class="downloader-container">
+    <div class="downloader-base-container">
+      <div class="downloader-form-container">
+        <span>Youtube video and audio downloader</span>
+        <form id="video-form" method="post">
+        {% csrf_token %}
+        <input type="text" id="link" name="link" placeholder="Enter the video URL">
+        <input class="submit-btn" type="submit" value="&#xf105;">
+        </form>
+      </div>
+  
+      <div class="loading-container" id="loading" style="display: none;">
+        <div class="spinner-border" role="status">
+          <span class="sr-only"></span>
         </div>
       </div>
-      <div class="block-divider"></div>
-      <div class="right-block">
-        <div>
-          <div class="video-quality-container">
-            <p id="quality"></p>
+  
+      <div class="video-display-container" style="display: none;">
+        <span class="base-title">Download Video as:</span>
+        <div class="video-display-content">
+          <div class="left-block">
+            <div>
+              <div class="video-thumbnail-container">
+                <img id="thumbnail" alt="Video thumbnail">
+              </div>
+              <div class="video-title-container">
+                <span id="title"></span>
+              </div>
+              <div class="video-size-quality">
+                <div class="video-duration-container">
+                  <span id="duration"></span>
+                </div>
+                <div class="video-quality-container">
+                  <span id="video-quality"></span>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+        <div class="download-btn-container">
+          <form id="download-btn" method="post" action="{% url 'download_video' %}">
+            {% csrf_token %}
+            <input class="submit-btn" type="submit" value="Download Video">
+          </form>
+          <form id="video-to-audio" method="post" action="{% url 'video_to_audio' %}">
+            {% csrf_token %}
+            <input class="submit-btn" type="submit" value="Download Audio">
+          </form>
         </div>
       </div>
     </div>
-    <form id="download-btn" method="post" action="{% url 'download_video' %}">
-      {% csrf_token %}
-      <input class="submit-btn" type="submit" value="Download">
-    </form>
+    <div class="youtube-logo-container">
+      <img src="{% static "images/youtube-video-downloader.png" %}" alt="The Youtube Logo">
+    </div>
   </div>
 </div>
 
@@ -67,23 +83,29 @@
       e.preventDefault();
       // Show the loading spinner
       $("#loading").show();
+      var videoQuality = $("#video-quality").val();  // Get the selected video quality
+      
+      // Create a data object that includes the form data and the video quality
+      var formData = $(this).serializeArray();
+      formData.push({name: 'quality', value: videoQuality});
+      
       $.ajax({
         url: '/get_video_properties/',  // Update with the correct URL
         type: 'post',
-        data: $(this).serialize(),
+        data: $.param(formData),  // Convert the data object to a query string
         success: function(data){
           // Hide the loading spinner
           $("#loading").hide();
           // Display the video properties
           displayVideoDiv();
           $("#title").text(data.title);
-          $("#duration").text("Duration: " + data.duration + " seconds");
+          $("#duration").text("Duration: " + Math.floor(data.duration / 60) + ":" + (data.duration % 60));
           $("#thumbnail").attr("src", data.thumbnail_url);
-          $("#quality").text("Quality: " + data.quality);
+          $("#video-quality").text("Quality : " + data.quality);
         }
       });
     });
-  });  
+  });   
 </script>
 
 </body>

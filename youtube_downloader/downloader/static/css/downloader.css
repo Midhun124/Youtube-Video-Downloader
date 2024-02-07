@@ -1,0 +1,154 @@
+body {
+  background-color: rgba(239, 239, 239, 0.97) !important;
+}
+@media (min-width: 768px) {
+  .downloader-container {
+    display: flex;
+    padding: 30px 180px;
+  }
+  .downloader-base-container {
+    position: relative;
+    width: 50%;
+    padding: 15px;
+  }
+  .downloader-form-container {
+    width: 100%;
+    padding: 20px;
+  }
+  .downloader-form-container span {
+    font-size: 25px;
+    font-weight: 900;
+    color: rgb(23, 0, 81);
+  }
+  .downloader-form-container #video-form {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .downloader-form-container #link {
+    width: 100%;
+    height: 40px;
+    padding: 5px 15px 8px;
+    border: 2px solid rgb(183, 183, 183);
+    border-radius: 5px;
+    outline: rgb(255, 82, 123);
+  }
+  .downloader-form-container #link:focus {
+    border: 1px solid rgb(255, 82, 123) !important;
+    box-shadow: 1px 1px 5px rgb(255, 82, 123);
+  }
+  .downloader-form-container .submit-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 0 5px 5px 0;
+    border-top: 2px solid rgb(183, 183, 183);
+    border-right: 2px solid rgb(183, 183, 183);
+    border-bottom: 2px solid rgb(183, 183, 183);
+    border-left: none;
+    font-family: "Font Awesome 5 Free";
+    font-size: 25px;
+    color: rgb(59, 59, 59);
+    font-weight: 900;
+    position: absolute;
+    left: 87%;
+  }
+  .loading-container {
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+  }
+  .spinner-border {
+    width: 30px !important;
+    height: 30px !important;
+    position: absolute;
+    bottom: 40%;
+    right: 50%;
+    border: 0.25em solid rgb(0, 0, 0) !important;
+    border-right-color: transparent !important;
+  }
+  .video-display-container {
+    width: 100%;
+  }
+  .base-title {
+    margin: 0 30%;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .video-display-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  .left-block {
+    width: 100%;
+    padding: 10px 60px;
+  }
+  .video-thumbnail-container {
+    width: 100%;
+    margin: 10px 0;
+  }
+  .video-thumbnail-container img {
+    width: 100%;
+  }
+  .video-title-container {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .video-title-container span {
+    font-size: 17px;
+    font-weight: 900;
+    color: rgb(67, 67, 67);
+  }
+  .video-size-quality {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .video-duration-container {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 10px 0;
+  }
+  .video-quality-container {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .video-quality-container span {
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .download-btn-container {
+    width: 100%;
+    display: flex;
+  }
+  #download-btn , #video-to-audio {
+    padding: 10px 60px;
+  }
+  #download-btn .submit-btn {
+    border: none;
+    background-color: rgb(233, 25, 73);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+  #video-to-audio .submit-btn {
+    border: none;
+    background-color: rgb(0, 102, 255);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+  .youtube-logo-container {
+    width: 50%;
+    padding: 15px;
+  }
+  .youtube-logo-container img {
+    width: 100%;
+    margin: 25px 25px;
+  }
+}
